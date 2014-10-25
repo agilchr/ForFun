@@ -29,8 +29,18 @@ def kfact(N,K):
     # now, the hard part
     # which currently I'm stumped on an ideal not O(len(fact)^k) solution
 
-    # let's try branch and bound:
-    
+    # let first brute force this
+    optionsPQ = PQ()
+    optionslist = [[1]*k]
+
+    for factor in facts:
+        newOptions = []
+        for option in optionsList:
+            for i in len(
+
+
+def spread(lst):
+    return max(lst) - min(lst)
     
 if __name__ == "__main__":
     for i in range(10,50):
