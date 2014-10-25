@@ -1,37 +1,37 @@
-# kfact
-# This program computes the k-factor factorization with the lowest spread
-# Useful for dividing a non-square area into equally sized parcels
+'''
+kfact
+This program computes the k-factor factorization with the lowest spread
+Useful for dividing a non-square area into equally sized parcels
+Written by Andrew Gilchrist-Scott
+'''
+
+from facorize import factorize
+from math import *
+from Queue import PriorityQueue as PQ
 
 def kfact(N,K):
-    for i in range(15):
-        pfact = badFact(i)  
-        print("%d gives:"%(i))
-        print(pfact)
+    ideal = pow(N,1./K)
+    if ideal == floor(ideal):
+        # kth root of N is an int, the ideal case
+        return [ideal]*K
+    
+    # obtain the prime factorization
+    facts = factorize(N)
 
+    if len(facts) == K:
+        # the lucky case
+        return facts
+    elif len(facts) < K:
+        # we've too few factors, so just fill with ones
+        while len(facts) < K:
+            facts = [1] + facts
 
+    # now, the hard part
+    # which currently I'm stumped on an ideal not O(len(fact)^k) solution
 
-def badFact(N):
-    # I can only imagine there's a better way to do this
-    testProduct = 1
-    facts = []
-
-    for i in range(2,N/2 + 1):
-
-        if (N % i) == 0:
-            while testProduct < N:
-                print(testProduct)
-                if testProduct*i <= N:
-                    facts.append(i)
-                    testProduct *= i
-        
-        if testProduct == N:
-            break
-    if facts == []:
-        # it's prime
-        facts = [N]
-
-    return facts
-
-
+    # let's try branch and bound:
+    
+    
 if __name__ == "__main__":
-    kfact(240,3)
+    for i in range(10,50):
+        print(kfact(i,3))
