@@ -42,8 +42,10 @@ class BoundedInt(object):
             if self.capNotWrap:
                 val = self.MAX
             else:
-                while not (self.MIN <= val <= self.MAX):
-                    val -= (self.MAX - self.MIN)
+                val -= self.MIN
+                spread = self.MAX - self.MIN + 1
+                val %= spread
+                val += self.MIN
         self.val = val
 
     def __add__(self,b):

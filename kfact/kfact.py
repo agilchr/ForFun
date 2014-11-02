@@ -9,6 +9,7 @@ from factorize import factorize
 from math import *
 #from Queue import PriorityQueue as PQ
 from copy import deepcopy
+import sys
 
 def kfact(N,K):
     ideal = pow(N,1./K)
@@ -88,7 +89,22 @@ class FactNode(object):
         return max(lst) - min(lst)
     
 if __name__ == "__main__":
-    for k in range(2,6):
-        for i in range(10,71):
+    if len(sys.argv) != 5:
+        print("Using defaults of k in 2-4 and the number in 200-270")
+        k_min = 2
+        k_max = 5
+        i_min = 200
+        i_max = 271
+    else:
+        try:
+            k_min = int(sys.argv[1])
+            k_max = int(sys.argv[2]) + 1
+            i_min = int(sys.argv[3])
+            i_max = int(sys.argv[4]) + 1
+        except(ValueError):
+            print('Input argmuments are not convertable to ints, try again')
+            sys.exit(1)
+    for k in range(k_min,k_max):
+        for i in range(i_min,i_max):
             print("The %d lowest spread factors of %d:"%(k,i))
             print(kfact(i,k))
